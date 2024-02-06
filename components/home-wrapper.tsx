@@ -6,18 +6,18 @@ const recommendations = ["partner", "girlfriend", "boyfriend", "valentine", "ene
 
 const HomeWrapper = () => {
 	const [title, setTitle] = useState("partner");
-	const [rel, setRel] = useState("y");
+	const [q, setQ] = useState("y");
 	const [name, setName] = useState("");
 	const [url, setUrl] = useState("");
 	const [copied, setCopied] = useState(false);
 
-	const RelElement = ({ relOption }: { relOption: string }) => {
-		const relText = relOption === "m" ? "Will you be my..." : "Can I be your...";
+	const RelElement = ({ qOption }: { qOption: string }) => {
+		const qText = qOption === "m" ? "Will you be my..." : "Can I be your...";
 		return (
 			<div
-				className={`rounded-md  p-2 m-2 cursor-pointer ${rel === relOption ? "bg-red-100" : "bg-gray-100"}`}
-				onClick={() => setRel(relOption)}>
-				<h5>{relText}</h5>
+				className={`rounded-md  p-2 m-2 cursor-pointer ${q === qOption ? "bg-red-100" : "bg-gray-100"}`}
+				onClick={() => setQ(qOption)}>
+				<h5>{qText}</h5>
 			</div>
 		);
 	};
@@ -35,18 +35,18 @@ const HomeWrapper = () => {
 	};
 
 	useEffect(() => {
-		setUrl(encodeURI(`${window.location.origin}/${title}?rel=${rel}` + (name !== "" ? `&name=${name}` : "")));
+		setUrl(encodeURI(`${window.location.origin}/${title}?q=${q}` + (name !== "" ? `&name=${name}` : "")));
 		setCopied(false);
-	}, [title, rel, name]);
+	}, [title, q, name]);
 
 	return (
 		<main className="flex justify-center items-center">
 			<div className="flex flex-col w-[90%] lg:w-[50%]">
-				<div id="rel-container">
+				<div id="question-container">
 					<h4>Question:</h4>
 					<div className="flex flex-wrap">
-						{["y", "m"].map((relOption) => (
-							<RelElement key={relOption} relOption={relOption} />
+						{["y", "m"].map((qOption) => (
+							<RelElement key={qOption} qOption={qOption} />
 						))}
 					</div>
 				</div>

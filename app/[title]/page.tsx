@@ -11,20 +11,18 @@ const TitlePage = () => {
 
 	const searchParams = useSearchParams();
 	const name = decodeURI(searchParams.get("name") ?? "");
-	const rel = decodeURI(searchParams.get("rel") ?? "");
+	const q = decodeURI(searchParams.get("q") ?? "");
 
-	if (rel === "") {
+	if (q === "") {
 		redirect("/");
 	}
 
-	if (rel !== "m" && rel !== "y") {
+	if (q !== "m" && q !== "y") {
 		redirect("/");
 	}
 
 	return (
-		<div>
-			{rel === "m" ? <QuestionMine title={title} name={name} /> : <QuestionYour title={title} name={name} />}
-		</div>
+		<div>{q === "m" ? <QuestionMine title={title} name={name} /> : <QuestionYour title={title} name={name} />}</div>
 	);
 };
 
