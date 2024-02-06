@@ -37,7 +37,7 @@ const HomeWrapper = () => {
 	};
 
 	useEffect(() => {
-		setUrl(`${window.location.origin}/${title}?rel=${rel}` + (name !== "" ? `&name=${name}` : ""));
+		setUrl(encodeURI(`${window.location.origin}/${title}?rel=${rel}` + (name !== "" ? `&name=${name}` : "")));
 		setCopied(false);
 	}, [title, rel, name]);
 

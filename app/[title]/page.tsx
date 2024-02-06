@@ -7,13 +7,13 @@ import QuestionYour from "@/components/question-your";
 
 const TitlePage = () => {
 	const params = useParams<{ title: string }>();
-	const title = params.title;
+	const title = decodeURI(params.title);
 
 	const searchParams = useSearchParams();
-	const name = searchParams.get("name");
-	const rel = searchParams.get("rel");
+	const name = decodeURI(searchParams.get("name") ?? "");
+	const rel = decodeURI(searchParams.get("rel") ?? "");
 
-	if (rel === null) {
+	if (rel === "") {
 		redirect("/");
 	}
 
