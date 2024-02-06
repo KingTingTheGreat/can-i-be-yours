@@ -12,12 +12,10 @@ const HomeWrapper = () => {
 	const [copied, setCopied] = useState(false);
 
 	const RelElement = ({ relOption }: { relOption: string }) => {
-		const relText = relOption === "m" ? "mine" : "yours";
+		const relText = relOption === "m" ? "Will you be my..." : "Can I be your...";
 		return (
 			<div
-				className={`rounded-md  p-2 m-2 cursor-pointer capitalize ${
-					rel === relOption ? "bg-red-100" : "bg-gray-100"
-				}`}
+				className={`rounded-md  p-2 m-2 cursor-pointer ${rel === relOption ? "bg-red-100" : "bg-gray-100"}`}
 				onClick={() => setRel(relOption)}>
 				<h5>{relText}</h5>
 			</div>
@@ -45,7 +43,7 @@ const HomeWrapper = () => {
 		<main className="flex justify-center items-center">
 			<div className="flex flex-col w-[90%] lg:w-[50%]">
 				<div id="rel-container">
-					<h4>Rel:</h4>
+					<h4>Question:</h4>
 					<div className="flex flex-wrap">
 						{["y", "m"].map((relOption) => (
 							<RelElement key={relOption} relOption={relOption} />
@@ -53,7 +51,7 @@ const HomeWrapper = () => {
 					</div>
 				</div>
 				<div id="title-container">
-					<h4>Recommended titles:</h4>
+					<h4>Popular titles:</h4>
 					<div className="flex flex-wrap">
 						{recommendations.map((rec) => (
 							<RecElement key={rec} rec={rec} />
