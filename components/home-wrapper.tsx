@@ -9,6 +9,7 @@ const HomeWrapper = () => {
 	const [rel, setRel] = useState("y");
 	const [name, setName] = useState("");
 	const [url, setUrl] = useState("");
+	const [copied, setCopied] = useState(false);
 
 	const RelElement = ({ relOption }: { relOption: string }) => {
 		const relText = relOption === "m" ? "mine" : "yours";
@@ -37,6 +38,7 @@ const HomeWrapper = () => {
 
 	useEffect(() => {
 		setUrl(`${window.location.origin}/${title}?rel=${rel}` + (name !== "" ? `&name=${name}` : ""));
+		setCopied(false);
 	}, [title, rel, name]);
 
 	return (
@@ -58,16 +60,27 @@ const HomeWrapper = () => {
 						))}
 					</div>
 				</div>
-				<input type="text" className="m-2" value={title} onChange={(e) => setTitle(e.target.value)} />
+				<input
+					type="text"
+					className="m-2"
+					value={title}
+					placeholder="Title (required)"
+					onChange={(e) => setTitle(e.target.value)}
+				/>
 				<input
 					type="text"
 					className="m-2"
 					value={name}
-					placeholder="Name"
+					placeholder="Name (optional)"
 					onChange={(e) => setName(e.target.value)}
 				/>
-				<div onClick={() => navigator.clipboard.writeText(url)} className="cursor-pointer">
-					<h4 className="text-xl">Copy URL: {url}</h4>
+				<div
+					onClick={() => {
+						navigator.clipboard.writeText(url);
+						setCopied(true);
+					}}
+					className="cursor-pointer">
+					<h4 className="text-xl">{!copied ? `Click to copy URL : ${url}` : `Copied to clipboard!`}</h4>
 				</div>
 			</div>
 		</main>
