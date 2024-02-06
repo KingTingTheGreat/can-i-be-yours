@@ -2,8 +2,6 @@
 import React, { FC } from "react";
 import { redirect } from "next/navigation";
 import { useParams, useSearchParams } from "next/navigation";
-import YesBox from "@/components/yes-box";
-import NoBox from "@/components/no-box";
 import QuestionMine from "@/components/question-mine";
 import QuestionYour from "@/components/question-your";
 
@@ -23,15 +21,9 @@ const TitlePage = () => {
 		redirect("/");
 	}
 
-	// if (typeof title !== "string" || typeof name !== "string") {
-	// 	redirect("/");
-	// }
-
 	return (
 		<div>
 			{rel === "m" ? <QuestionMine title={title} name={name} /> : <QuestionYour title={title} name={name} />}
-			<YesBox />
-			<NoBox />
 		</div>
 	);
 };

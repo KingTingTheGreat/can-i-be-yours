@@ -1,10 +1,11 @@
 import Header from "@/components/header";
+import HomeWrapper from "@/components/home-wrapper";
 
 export default function Home() {
 	return (
-		<main className="h-full">
+		<>
 			<Header />
-			<p>Welcome to CanIBeYours</p>
-		</main>
+			<HomeWrapper />
+		</>
 	);
 }
