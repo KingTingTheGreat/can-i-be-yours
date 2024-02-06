@@ -43,7 +43,7 @@ const HomeWrapper = () => {
 
 	return (
 		<main className="flex justify-center items-center">
-			<div className="flex flex-col w-[80%] lg:w-[50%]">
+			<div className="flex flex-col w-[90%] lg:w-[50%]">
 				<div id="rel-container">
 					<h4>Rel:</h4>
 					<div className="flex flex-wrap">
@@ -52,28 +52,33 @@ const HomeWrapper = () => {
 						))}
 					</div>
 				</div>
-				<div id="recommendation-container">
-					<h4>Recommendations:</h4>
+				<div id="title-container">
+					<h4>Recommended titles:</h4>
 					<div className="flex flex-wrap">
 						{recommendations.map((rec) => (
 							<RecElement key={rec} rec={rec} />
 						))}
 					</div>
+					<input
+						type="text"
+						className="m-2"
+						value={title}
+						placeholder="Title (required)"
+						onChange={(e) => setTitle(e.target.value)}
+					/>
 				</div>
-				<input
-					type="text"
-					className="m-2"
-					value={title}
-					placeholder="Title (required)"
-					onChange={(e) => setTitle(e.target.value)}
-				/>
-				<input
-					type="text"
-					className="m-2"
-					value={name}
-					placeholder="Name (optional)"
-					onChange={(e) => setName(e.target.value)}
-				/>
+
+				<div id="name-container">
+					<h4>Name:</h4>
+					<input
+						type="text"
+						className="m-2"
+						value={name}
+						placeholder="Name (optional)"
+						onChange={(e) => setName(e.target.value)}
+					/>
+				</div>
+
 				<div
 					onClick={() => {
 						navigator.clipboard.writeText(url);
