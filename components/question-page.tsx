@@ -13,7 +13,7 @@ const QuestionPage = ({ q, title, name }: { q: string; title: string; name: stri
 				<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
 			</div>
 
-			<p>Number of people who said no: {numNo}</p>
+			<p># of times you said no: {numNo}</p>
 		</div>
 	);
 };
