@@ -1,5 +1,4 @@
-import YesBox from "./yes-box";
-import NoBox from "./no-box";
+import AnswerBox from "./answer-box";
 import Question from "./question";
 import { useState } from "react";
 
@@ -7,10 +6,13 @@ const QuestionPage = ({ q, title, name }: { q: string; title: string; name: stri
 	const [numNo, setNumNo] = useState(0);
 
 	return (
-		<div>
+		<div className="flex flex-col justify-center items-center">
 			<Question q={q} title={title} name={name} />
-			<YesBox />
-			<NoBox incNo={() => setNumNo(numNo + 1)} />
+			<div className="flex">
+				<AnswerBox answer="yes" numNo={numNo} incNo={null} />
+				<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
+			</div>
+
 			<p>Number of people who said no: {numNo}</p>
 		</div>
 	);
