@@ -1,9 +1,8 @@
 "use client";
-import React, { FC } from "react";
+import React from "react";
 import { redirect } from "next/navigation";
 import { useParams, useSearchParams } from "next/navigation";
-import QuestionMine from "@/components/question-mine";
-import QuestionYour from "@/components/question-your";
+import QuestionPage from "@/components/question-page";
 
 const TitlePage = () => {
 	const params = useParams<{ title: string }>();
@@ -22,7 +21,9 @@ const TitlePage = () => {
 	}
 
 	return (
-		<div>{q === "m" ? <QuestionMine title={title} name={name} /> : <QuestionYour title={title} name={name} />}</div>
+		<main>
+			<QuestionPage q={q} title={title} name={name} />
+		</main>
 	);
 };
 

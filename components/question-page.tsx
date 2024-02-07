@@ -1,13 +1,14 @@
 import YesBox from "./yes-box";
 import NoBox from "./no-box";
+import Question from "./question";
 import { useState } from "react";
 
-const QuestionMine = ({ title, name }: { title: string; name: string | null }) => {
+const QuestionPage = ({ q, title, name }: { q: string; title: string; name: string }) => {
 	const [numNo, setNumNo] = useState(0);
 
 	return (
 		<div>
-			<h2>{name ? `${name}, will you be my ${title}?` : `Will you be my ${title}?`}</h2>
+			<Question q={q} title={title} name={name} />
 			<YesBox />
 			<NoBox incNo={() => setNumNo(numNo + 1)} />
 			<p>Number of people who said no: {numNo}</p>
@@ -15,4 +16,4 @@ const QuestionMine = ({ title, name }: { title: string; name: string | null }) =
 	);
 };
 
-export default QuestionMine;
+export default QuestionPage;
