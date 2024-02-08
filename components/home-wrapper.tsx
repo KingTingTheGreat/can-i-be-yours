@@ -1,10 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { redirect } from "next/navigation";
+import writeEntry from "@/utils/writeEntry";
+import generateKey from "@/utils/generateKey";
 
 const recommendations = ["partner", "girlfriend", "boyfriend", "valentine", "enemy"];
 
 const HomeWrapper = () => {
+	const [key, setKey] = useState("");
 	const [title, setTitle] = useState("partner");
 	const [q, setQ] = useState("y");
 	const [name, setName] = useState("");
@@ -36,6 +38,7 @@ const HomeWrapper = () => {
 
 	useEffect(() => {
 		setUrl(encodeURI(`${window.location.origin}/${title}?q=${q}` + (name !== "" ? `&name=${name}` : "")));
+		setKey(generateKey());
 		setCopied(false);
 	}, [title, q, name]);
 
@@ -85,6 +88,7 @@ const HomeWrapper = () => {
 					className="cursor-pointer">
 					<h4 className="text-xl">{!copied ? `Click to copy URL : ${url}` : `Copied to clipboard!`}</h4>
 				</div>
+				<p>Here is your key: {key}</p>
 			</div>
 		</main>
 	);
