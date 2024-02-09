@@ -1,10 +1,20 @@
+"use client";
 import AnswerBox from "./answer-box";
 import Loading from "./loading";
 import Question from "./question";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const QuestionPage = ({ q, title, name }: { q: string; title: string; name: string }) => {
+const QuestionPage = ({ data }: { data: { title: string; q: string; name: string } }) => {
 	const [numNo, setNumNo] = useState(0);
+	const [q, setQ] = useState("");
+	const [title, setTitle] = useState("");
+	const [name, setName] = useState("");
+
+	useEffect(() => {
+		setTitle(data.title);
+		setQ(data.q);
+		setName(data.name);
+	}, [data]);
 
 	return (
 		<div className="flex flex-col justify-center items-center">
