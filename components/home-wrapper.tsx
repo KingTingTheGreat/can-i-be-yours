@@ -7,6 +7,9 @@ const recommendations = ["partner", "girlfriend", "boyfriend", "valentine", "ene
 
 const HomeWrapper = () => {
 	const [key, setKey] = useState("");
+	useEffect(() => {
+		setKey(generateKey());
+	}, []);
 	const [title, setTitle] = useState("partner");
 	const [q, setQ] = useState("y");
 	const [name, setName] = useState("");
@@ -36,11 +39,23 @@ const HomeWrapper = () => {
 		);
 	};
 
+	const sendToDB = async () => {
+		const entry = { key, title, q, name };
+		console.log(entry);
+		await fetch("/api/writeEntry", {
+			method: "POST",
+			headers: {
+				key: key,
+				title: title,
+				q: q,
+				name: name,
+			},
+		});
+	};
+
 	useEffect(() => {
-		setUrl(encodeURI(`${window.location.origin}/${title}?q=${q}` + (name !== "" ? `&name=${name}` : "")));
-		setKey(generateKey());
-		setCopied(false);
-	}, [title, q, name]);
+		setUrl(encodeURI(`${window.location.origin}/${key}`));
+	}, [key]);
 
 	return (
 		<main className="flex justify-center items-center">
@@ -84,6 +99,7 @@ const HomeWrapper = () => {
 					onClick={() => {
 						navigator.clipboard.writeText(url);
 						setCopied(true);
+						sendToDB();
 					}}
 					className="cursor-pointer">
 					<h4 className="text-xl">{!copied ? `Click to copy URL : ${url}` : `Copied to clipboard!`}</h4>

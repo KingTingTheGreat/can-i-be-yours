@@ -7,7 +7,24 @@ const DB_COLLECTION = process.env.DB_COLLECTION;
 
 // connection function
 export const entryDBConnect = async () => {
-	const EntrySchema = new mongoose.Schema({});
+	const EntrySchema = new mongoose.Schema({
+		key: {
+			type: String,
+			default: "",
+		},
+		title: {
+			type: String,
+			default: "",
+		},
+		q: {
+			type: String,
+			default: "",
+		},
+		name: {
+			type: String,
+			default: "",
+		},
+	});
 
 	const conn = await mongoose.connect(MONGODB_URL as string).catch((err) => console.log(err));
 
@@ -16,7 +33,7 @@ export const entryDBConnect = async () => {
 		throw new Error("Connection Error");
 	}
 
-	const Entries = mongoose.models.Entries || mongoose.model("Entry", EntrySchema, DB_COLLECTION);
+	const Entry = mongoose.models.Entry || mongoose.model("Entry", EntrySchema, DB_COLLECTION);
 
-	return { conn, Entries };
+	return { conn, Entry };
 };
