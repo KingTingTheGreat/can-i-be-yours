@@ -7,7 +7,24 @@ const DB_COLLECTION = process.env.DB_COLLECTION;
 
 // connection function
 export const entryDBConnect = async () => {
-	const EntrySchema = new mongoose.Schema({});
+	const EntrySchema = new mongoose.Schema({
+		key: {
+			type: String,
+			default: "",
+		},
+		title: {
+			type: String,
+			default: "",
+		},
+		q: {
+			type: String,
+			default: "",
+		},
+		name: {
+			type: String,
+			default: "",
+		},
+	});
 
 	const conn = await mongoose.connect(MONGODB_URL as string).catch((err) => console.log(err));
 
