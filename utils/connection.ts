@@ -16,7 +16,7 @@ export const entryDBConnect = async () => {
 		throw new Error("Connection Error");
 	}
 
-	const Entries = mongoose.models.Entries || mongoose.model("Entry", EntrySchema, DB_COLLECTION);
+	const Entry = mongoose.models.Entry || mongoose.model("Entry", EntrySchema, DB_COLLECTION);
 
-	return { conn, Entries };
+	return { conn, Entry };
 };
