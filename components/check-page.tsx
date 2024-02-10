@@ -4,15 +4,15 @@ import Loading from "./loading";
 import Question from "./question";
 import { useState, useEffect } from "react";
 
-const CheckPage = ({ data }: { data: { title: string; q: string; name: string } }) => {
+const CheckPage = ({ data }: { data: { title: string; y: boolean; name: string } }) => {
 	const [numNo, setNumNo] = useState(0);
-	const [q, setQ] = useState("");
+	const [y, setY] = useState(true);
 	const [title, setTitle] = useState("");
 	const [name, setName] = useState("");
 
 	useEffect(() => {
 		setTitle(data.title);
-		setQ(data.q);
+		setY(data.y);
 		setName(data.name);
 	}, [data]);
 
@@ -20,7 +20,7 @@ const CheckPage = ({ data }: { data: { title: string; q: string; name: string } 
 		<div className="flex flex-col justify-center items-center">
 			{title ? (
 				<>
-					<Question q={q} title={title} name={name} />
+					<Question y={y} title={title} name={name} />
 					<div className="flex">
 						<AnswerBox answer="yes" numNo={numNo} incNo={null} />
 						<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />

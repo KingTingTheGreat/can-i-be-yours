@@ -9,13 +9,14 @@ export async function POST(request: NextRequest) {
 	const headersList = headers();
 	const key = headersList.get("key") as string;
 	const title = headersList.get("title") as string;
-	const q = headersList.get("q") as string;
+	const yHeader = headersList.get("y") as string;
+	const y = yHeader === "true";
 	const name = headersList.get("name") as string;
 
-	// check that key, title, q are present
-	if (!key || !title || !q) {
-		console.log("Missing key, title, or q");
-		return NextResponse.json({ error: "Missing key, title, or q" }, { status: 400 });
+	// check that key and title are present
+	if (!key || !title) {
+		console.log("Missing key or title");
+		return NextResponse.json({ error: "Missing key or title" }, { status: 400 });
 	}
 
 	// check that key is only 0-9 and a-z
@@ -25,15 +26,9 @@ export async function POST(request: NextRequest) {
 	}
 
 	// check that title, q, and name are clean
-	if (!isClean(title) || !isClean(q) || !isClean(name)) {
-		console.log("Unclean title, q, or name");
-		return NextResponse.json({ error: "Invalid title, q, or name" }, { status: 400 });
-	}
-
-	// check q is a single char
-	if (q.length != 1) {
-		console.log("Invalid q");
-		return NextResponse.json({ error: "Invalid q" }, { status: 400 });
+	if (!isClean(title) || !isClean(name)) {
+		console.log("Unclean title or name");
+		return NextResponse.json({ error: "Invalid title or name" }, { status: 400 });
 	}
 
 	// check title and name are 64 chars or less
@@ -52,7 +47,7 @@ export async function POST(request: NextRequest) {
 	}
 
 	// create the new entry and save
-	const newEntry = new db.Entry({ key, title, q, name });
+	const newEntry = new db.Entry({ key, title, y, name });
 	await newEntry.save();
 	console.log("Saved new entry");
 

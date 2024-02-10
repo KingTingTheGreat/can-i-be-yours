@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 const ReceiverPage = async () => {
 	const params = useParams<{ key: string }>();
 
-	const res = await fetch(`https://canibeyours.com/api/getEntry?key=${params.key}`);
+	const res = await fetch(`http://localhost:3000/api/getEntry?key=${params.key}`);
 	if (!res.ok) {
 		console.log("Failed to fetch");
 		redirect("/");
