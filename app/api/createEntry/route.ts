@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 	}
 
 	// create the new entry and save
-	const newEntry = new db.Entry({ key, title, y, name });
+	const newEntry = new db.Entry({ key, title, y, name, opened: false, answer: null });
 	await newEntry.save();
 	console.log("Saved new entry");
 

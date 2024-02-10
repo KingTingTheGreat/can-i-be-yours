@@ -12,9 +12,10 @@ export async function GET(request: NextRequest) {
 	} else if (entries.length > 1) {
 		return NextResponse.json({ error: "Multiple entries found" }, { status: 500 });
 	}
-	const entry = entries[0];
+	let entry = entries[0];
 	// update opened to true
 	entry.opened = true;
 	await entry.save();
+	console.log("Updated entry to opened");
 	return NextResponse.json(entry);
 }

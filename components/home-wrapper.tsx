@@ -45,7 +45,7 @@ const HomeWrapper = () => {
 	const sendToDB = async () => {
 		const entry = { key, title, y, name };
 		console.log(entry);
-		await fetch("/api/writeEntry", {
+		await fetch("/api/createEntry", {
 			method: "POST",
 			headers: {
 				key: key,
