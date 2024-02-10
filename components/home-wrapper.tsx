@@ -16,7 +16,8 @@ const HomeWrapper = () => {
 	const [url, setUrl] = useState("");
 	const [copied, setCopied] = useState(false);
 
-	const RelElement = ({ qOption }: { qOption: string }) => {
+	// question element
+	const QElement = ({ qOption }: { qOption: string }) => {
 		const qText = qOption === "m" ? "Will you be my..." : "Can I be your...";
 		return (
 			<div
@@ -27,6 +28,7 @@ const HomeWrapper = () => {
 		);
 	};
 
+	// recommendation element
 	const RecElement = ({ rec }: { rec: string }) => {
 		return (
 			<div
@@ -39,6 +41,7 @@ const HomeWrapper = () => {
 		);
 	};
 
+	// sends the entry to the database
 	const sendToDB = async () => {
 		const entry = { key, title, q, name };
 		console.log(entry);
@@ -53,6 +56,16 @@ const HomeWrapper = () => {
 		});
 	};
 
+	// resets fields and generates a new key
+	const resetFields = () => {
+		setTitle("partner");
+		setQ("y");
+		setName("");
+		setCopied(false);
+		setKey(generateKey());
+	};
+
+	// updates the url when the key changes
 	useEffect(() => {
 		setUrl(encodeURI(`${window.location.origin}/${key}`));
 	}, [key]);
@@ -64,7 +77,7 @@ const HomeWrapper = () => {
 					<h4>Question:</h4>
 					<div className="flex flex-wrap">
 						{["y", "m"].map((qOption) => (
-							<RelElement key={qOption} qOption={qOption} />
+							<QElement key={qOption} qOption={qOption} />
 						))}
 					</div>
 				</div>
@@ -105,6 +118,11 @@ const HomeWrapper = () => {
 					<h4 className="text-xl">{!copied ? `Click to copy URL : ${url}` : `Copied to clipboard!`}</h4>
 				</div>
 				<p>Here is your key: {key}</p>
+				<div
+					onClick={() => resetFields()}
+					className="cursor-pointer bg-red-400 w-24 text-center rounded-lg p-2">
+					Make a new link
+				</div>
 			</div>
 		</main>
 	);
