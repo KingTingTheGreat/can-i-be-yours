@@ -24,6 +24,14 @@ export const entryDBConnect = async () => {
 			type: String,
 			default: "",
 		},
+		opened: {
+			type: Boolean,
+			default: false,
+		},
+		answer: {
+			type: Boolean,
+			default: null,
+		},
 	});
 
 	const conn = await mongoose.connect(MONGODB_URL as string).catch((err) => console.log(err));
