@@ -1,38 +1,20 @@
 "use client";
-import AnswerBox from "./answer-box";
-import Loading from "./loading";
-import Question from "./question";
-import { useState, useEffect } from "react";
+import React from "react";
+import { useSearchParams } from "next/navigation";
+import QuestionPage from "@/components/question-page";
+import { redirect } from "next/navigation";
 
-const CheckPage = ({ data }: { data: { title: string; y: boolean; name: string } }) => {
-	const [numNo, setNumNo] = useState(0);
-	const [y, setY] = useState(true);
-	const [title, setTitle] = useState("");
-	const [name, setName] = useState("");
+const CheckPage = async () => {
+	const key = useSearchParams().get("key") as string;
 
-	useEffect(() => {
-		setTitle(data.title);
-		setY(data.y);
-		setName(data.name);
-	}, [data]);
+	const res = await fetch(`https://canibeyours.com/api/getEntry?key=${key}`);
+	if (!res.ok) {
+		console.log("Failed to fetch");
+		redirect("/");
+	}
+	const data = await res.json();
 
-	return (
-		<div className="flex flex-col justify-center items-center">
-			{title ? (
-				<>
-					<Question y={y} title={title} name={name} />
-					<div className="flex">
-						<AnswerBox answer="yes" numNo={numNo} incNo={null} />
-						<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
-					</div>
-
-					<p className="select-none"># of times you said no: {numNo}</p>
-				</>
-			) : (
-				<Loading />
-			)}
-		</div>
-	);
+	return <QuestionPage data={data} />;
 };
 
 export default CheckPage;
