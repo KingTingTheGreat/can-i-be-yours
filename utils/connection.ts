@@ -16,13 +16,21 @@ export const entryDBConnect = async () => {
 			type: String,
 			default: "",
 		},
-		q: {
-			type: String,
-			default: "",
+		y: {
+			type: Boolean,
+			default: true,
 		},
 		name: {
 			type: String,
 			default: "",
+		},
+		opened: {
+			type: Boolean,
+			default: false,
+		},
+		answer: {
+			type: Boolean,
+			default: null,
 		},
 	});
 

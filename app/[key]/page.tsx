@@ -14,9 +14,35 @@ const ReceiverPage = async () => {
 	}
 	const data = await res.json();
 
+	const updateYes = async () => {
+		const res = await fetch(`https://canibeyours.com/api/updateEntry`, {
+			method: "POST",
+			headers: {
+				key: params.key,
+				answer: "true",
+			},
+		});
+		if (!res.ok) {
+			console.log("Failed to update");
+		}
+	};
+
+	const updateNo = async () => {
+		const res = await fetch(`https://canibeyours.com/api/updateEntry`, {
+			method: "POST",
+			headers: {
+				key: params.key,
+				answer: "false",
+			},
+		});
+		if (!res.ok) {
+			console.log("Failed to update");
+		}
+	};
+
 	return (
 		<main>
-			<QuestionPage data={data} />
+			<QuestionPage data={data} updateYes={updateYes} updateNo={updateNo} />
 		</main>
 	);
 };
