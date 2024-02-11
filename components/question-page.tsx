@@ -4,7 +4,15 @@ import Loading from "./loading";
 import Question from "./question";
 import { useState, useEffect } from "react";
 
-const QuestionPage = ({ data }: { data: { title: string; y: boolean; name: string } }) => {
+const QuestionPage = ({
+	data,
+	updateYes,
+	updateNo,
+}: {
+	data: { title: string; y: boolean; name: string };
+	updateYes: any;
+	updateNo: any;
+}) => {
 	const [numNo, setNumNo] = useState(0);
 	const [y, setY] = useState(true);
 	const [title, setTitle] = useState("");
@@ -22,8 +30,12 @@ const QuestionPage = ({ data }: { data: { title: string; y: boolean; name: strin
 				<>
 					<Question y={y} title={title} name={name} />
 					<div className="flex">
-						<AnswerBox answer="yes" numNo={numNo} incNo={null} />
-						<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
+						<div onClick={() => updateYes()}>
+							<AnswerBox answer="yes" numNo={numNo} incNo={null} />
+						</div>
+						<div onClick={() => updateNo()}>
+							<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
+						</div>
 					</div>
 
 					<p className="select-none"># of times you said no: {numNo}</p>
