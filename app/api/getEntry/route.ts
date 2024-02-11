@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic"; // defaults to auto
 
 export async function GET(request: NextRequest) {
 	const key = request.nextUrl.searchParams.get("key") as string;
+	const checker = (request.nextUrl.searchParams.get("checker") as string) === "true";
 	const db = await entryDBConnect();
 	const entries = await db.Entry.find({ key }).exec();
 	if (entries.length === 0) {
@@ -13,9 +14,10 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json({ error: "Multiple entries found" }, { status: 500 });
 	}
 	let entry = entries[0];
-	// update opened to true
-	entry.opened = true;
-	await entry.save();
-	console.log("Updated entry to opened");
+	if (!checker) {
+		// update opened to true
+		entry.opened = true;
+		await entry.save();
+	}
 	return NextResponse.json(entry);
 }
