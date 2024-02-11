@@ -14,7 +14,8 @@ const HomeWrapper = () => {
 	const [name, setName] = useState("");
 	const [sendUrl, setSendUrl] = useState("");
 	const [checkUrl, setCheckUrl] = useState("");
-	const [copied, setCopied] = useState(false);
+	const [copiedSend, setCopiedSend] = useState(false);
+	const [copiedCheck, setCopiedCheck] = useState(false);
 
 	// yours or mine element
 	const YElement = ({ yOption }: { yOption: boolean }) => {
@@ -61,7 +62,8 @@ const HomeWrapper = () => {
 		setTitle("partner");
 		setY(true);
 		setName("");
-		setCopied(false);
+		setCopiedSend(false);
+		setCopiedCheck(false);
 		setKey(generateKey());
 	};
 
@@ -112,15 +114,27 @@ const HomeWrapper = () => {
 				<div
 					onClick={() => {
 						navigator.clipboard.writeText(sendUrl);
-						setCopied(true);
+						setCopiedCheck(false);
+						setCopiedSend(true);
 						sendToDB();
 					}}
 					className="cursor-pointer">
 					<h4 className="text-xl">
-						{!copied ? `Click to copy sendUrl : ${sendUrl}` : `Copied to clipboard!`}
+						{!copiedSend ? `Send this URL to your recipient: ${sendUrl}` : `Copied to clipboard!`}
 					</h4>
 				</div>
-				<p>Check your recipient&apos;s response here: {checkUrl}</p>
+				<div
+					onClick={() => {
+						navigator.clipboard.writeText(checkUrl);
+						setCopiedSend(false);
+						setCopiedCheck(true);
+						sendToDB();
+					}}
+					className="cursor-pointer">
+					<h4 className="text-xl">
+						{!copiedCheck ? `Use this URL to check their response: ${checkUrl}` : `Copied to clipboard!`}
+					</h4>
+				</div>
 				<div
 					onClick={() => resetFields()}
 					className="cursor-pointer bg-red-400 w-24 text-center rounded-lg p-2">
