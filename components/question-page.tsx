@@ -1,4 +1,5 @@
 "use client";
+import { redirect } from "next/navigation";
 import AnswerBox from "./answer-box";
 import Loading from "./loading";
 import Question from "./question";
@@ -18,6 +19,8 @@ const QuestionPage = ({
 	const [title, setTitle] = useState("");
 	const [name, setName] = useState("");
 
+	const [redir, setRedir] = useState(false);
+
 	useEffect(() => {
 		setTitle(data.title);
 		setY(data.y);
@@ -27,8 +30,15 @@ const QuestionPage = ({
 	const conditionalUpdateNo = () => {
 		if (numNo >= 10) {
 			updateNo();
+			setRedir(true);
 		}
 	};
+
+	useEffect(() => {
+		if (redir) {
+			redirect("/");
+		}
+	}, [redir]);
 
 	return (
 		<div className="flex flex-col justify-center items-center">
