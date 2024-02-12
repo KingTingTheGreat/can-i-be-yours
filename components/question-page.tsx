@@ -24,6 +24,12 @@ const QuestionPage = ({
 		setName(data.name);
 	}, [data]);
 
+	const conditionalUpdateNo = () => {
+		if (numNo >= 10) {
+			updateNo();
+		}
+	};
+
 	return (
 		<div className="flex flex-col justify-center items-center">
 			{title ? (
@@ -33,7 +39,7 @@ const QuestionPage = ({
 						<div onClick={() => updateYes()}>
 							<AnswerBox answer="yes" numNo={numNo} incNo={null} />
 						</div>
-						<div onClick={() => updateNo()}>
+						<div onClick={() => conditionalUpdateNo()}>
 							<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
 						</div>
 					</div>
