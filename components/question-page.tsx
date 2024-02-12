@@ -43,8 +43,6 @@ const QuestionPage = ({
 							<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
 						</div>
 					</div>
-
-					<p className="select-none"># of times you said no: {numNo}</p>
 				</>
 			) : (
 				<Loading />
