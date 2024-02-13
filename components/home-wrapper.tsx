@@ -32,13 +32,13 @@ const HomeWrapper = () => {
 	// recommendation element
 	const RecElement = ({ rec }: { rec: string }) => {
 		return (
-			<div
+			<main
 				className={`rounded-md bg-gray-100 p-2 m-2 cursor-pointer capitalize ${
 					rec === title ? "bg-red-100" : "bg-gray-100"
 				}`}
 				onClick={() => setTitle(rec)}>
 				<h5>{rec}</h5>
-			</div>
+			</main>
 		);
 	};
 
