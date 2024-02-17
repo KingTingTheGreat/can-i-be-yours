@@ -53,7 +53,7 @@ const QuestionPage = ({
 		<div className="flex flex-col justify-center items-center">
 			{answer ? (
 				<YesAnswered />
-			) : title ? (
+			) : (
 				<>
 					<Question y={y} title={title} name={name} />
 					<div className="flex">
@@ -65,8 +65,6 @@ const QuestionPage = ({
 						</div>
 					</div>
 				</>
-			) : (
-				<Loading />
 			)}
 		</div>
 	);
