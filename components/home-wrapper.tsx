@@ -4,6 +4,8 @@ import generateKey from "@/utils/generateKey";
 
 const recommendations = ["partner", "girlfriend", "boyfriend", "valentine", "enemy"];
 
+const url = 'https://canibeyours.com'
+
 const HomeWrapper = () => {
 	const [key, setKey] = useState("");
 	useEffect(() => {
@@ -46,7 +48,7 @@ const HomeWrapper = () => {
 	const sendToDB = async () => {
 		const entry = { key, title, y, name };
 		console.log(entry);
-		await fetch("/api/createEntry", {
+		fetch("/api/createEntry", {
 			method: "POST",
 			headers: {
 				key: key,
@@ -69,8 +71,8 @@ const HomeWrapper = () => {
 
 	// updates the sendUrl when the key changes
 	useEffect(() => {
-		setSendUrl(encodeURI(`${window.location.origin}/${key}`));
-		setCheckUrl(encodeURI(`${window.location.origin}/check?key=${key}`));
+		setSendUrl(encodeURI(`${url}/${key}`));
+		setCheckUrl(encodeURI(`${url}/check?key=${key}`));
 	}, [key]);
 
 	return (

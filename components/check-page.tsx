@@ -3,16 +3,19 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import CheckQuestion from "./check-question";
 import { redirect } from "next/navigation";
+import useSWR from 'swr';
 
-const CheckPage = async () => {
+const url = 'https://canibeyours.com'
+
+const CheckPage = () => {
 	const key = useSearchParams().get("key") as string;
 
-	const res = await fetch(`https://canibeyours.com/api/getEntry?key=${key}&checker=true`);
-	if (!res.ok) {
+	const res = useSWR(`${url}/api/getEntry?key=${key}&checker=true`, (url) => fetch(url).then(res => res.json()))
+	if (res.error) {
 		console.log("Failed to fetch");
 		redirect("/");
 	}
-	const data = await res.json();
+	const data = res.data;
 
 	return <CheckQuestion data={data} />;
 };
