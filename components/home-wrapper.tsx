@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import generateKey from "@/utils/generateKey";
+import { URL } from "@/url"
 
 const recommendations = ["partner", "girlfriend", "boyfriend", "valentine", "enemy"];
-
-const url = 'https://canibeyours.com'
 
 const HomeWrapper = () => {
 	const [key, setKey] = useState("");
@@ -71,8 +70,8 @@ const HomeWrapper = () => {
 
 	// updates the sendUrl when the key changes
 	useEffect(() => {
-		setSendUrl(encodeURI(`${url}/${key}`));
-		setCheckUrl(encodeURI(`${url}/check?key=${key}`));
+		setSendUrl(encodeURI(`${URL}/${key}`));
+		setCheckUrl(encodeURI(`${URL}/check?key=${key}`));
 	}, [key]);
 
 	return (
