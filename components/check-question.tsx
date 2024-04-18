@@ -9,8 +9,8 @@ const ResponseWrapper = ({ children }: { children: React.ReactNode }) => {
 const CheckQuestion = ({
 	data,
 }: {
-	data: { title: string; y: boolean; name: string; opened: boolean; answer: boolean | null };
-}) => {
+		data: { title: string; y: boolean; name: string; opened: boolean; answer: boolean | null };
+	}) => {
 	const [y, setY] = useState(true);
 	const [title, setTitle] = useState("");
 	const [name, setName] = useState("");
@@ -18,12 +18,14 @@ const CheckQuestion = ({
 	const [answer, setAnswer] = useState<null | boolean>(null);
 
 	useEffect(() => {
-		setTitle(data.title);
-		setY(data.y);
-		setName(data.name);
-		setOpened(data.opened);
-		setAnswer(data.answer);
-	}, [data]);
+		if (data) {
+			setTitle(data.title);
+			setY(data.y);
+			setName(data.name);
+			setOpened(data.opened);
+			setAnswer(data.answer);
+		}
+		}, [data]);
 
 	const getName = () => {
 		return <span className="font-medium">{name !== "" ? name : "Your recipient"}</span>;
@@ -34,7 +36,7 @@ const CheckQuestion = ({
 			return <ResponseWrapper>{getName()} has not opened your message yet.</ResponseWrapper>;
 		} else if (answer === null) {
 			return <ResponseWrapper>{getName()} has opened your message and is thinking it over.</ResponseWrapper>;
-		} else if (y) {
+	} else if (y) {
 			if (answer) {
 				return (
 					<ResponseWrapper>

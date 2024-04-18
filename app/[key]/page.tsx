@@ -5,53 +5,59 @@ import QuestionPage from "@/components/question-page";
 import { redirect } from "next/navigation";
 import useSWR from "swr";
 import Loading from "@/components/loading";
-
-const url = 'https://canibeyours.com';
+import {URL} from "@/url";
 
 const ReceiverPage = () => {
 	const params = useParams<{ key: string }>();
 
-	const res = useSWR(`${url}/api/getEntry?key=${params.key}`, (url) =>
-		fetch(url).then((res) => res.json())
-	);
+	const res = useSWR(`${URL}/api/getEntry?key=${params.key}`, (url) => fetch(url).then((res) => res.json()));
 	if (res.error) {
 		console.log("Failed to fetch");
 		redirect("/");
 	}
-	
-	if (res.isLoading) return <Loading />
+
+	if (res.isLoading) return <Loading />;
 
 	const data = res.data;
 
 	const UpdateYes = () => {
 		console.log("you said yes!");
-		const res = useSWR(`${url}/api/updatEntry`, (url) =>
-			fetch(url, {
-				method: "POST",
-				headers: {
-					key: params.key,
-					answer: "true",
-				},
-			}).then((res) => res.json())
-		);
-		if (res.error) {
-			console.log("Failed to update");
-		}
+		fetch(`${URL}/api/updateEntry`, {
+			method: "POST",
+			headers: {
+				key: params.key,
+				answer: "true",
+			},
+		})
+			.then((res) => res.ok)
+			.then((ok) => {
+				if (ok) {
+					console.log("Successfully updated entry");
+				} else {
+					throw new Error("failed to update entry");
+				}
+			})
+			.catch((err) => console.error(err));
 	};
 
 	const UpdateNo = () => {
 		console.log("you said no :(");
-		const res = useSWR(`${url}/api/updateEntry`, (url) => 
-		fetch(url, {
+		fetch(`${URL}/api/updateEntry`, {
 			method: "POST",
 			headers: {
 				key: params.key,
 				answer: "false",
 			},
-		}));
-		if (res.error) {
-			console.log("Failed to update");
-		}
+		})
+			.then((res) => res.ok)
+			.then((ok) => {
+				if (ok) {
+					console.log("Successfully updated entry");
+				} else {
+					throw new Error("failed to update entry");
+				}
+			})
+			.catch((err) => console.error(err));
 	};
 
 	return (
