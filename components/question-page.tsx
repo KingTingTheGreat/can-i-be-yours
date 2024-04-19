@@ -24,11 +24,13 @@ const QuestionPage = ({
 	const [redir, setRedir] = useState(false);
 
 	useEffect(() => {
-		setTitle(data.title);
-		setY(data.y);
-		setName(data.name);
-		setAnswer(data.answer);
-	}, [data]);
+		if (data) {
+			setTitle(data.title);
+			setY(data.y);
+			setName(data.name);
+			setAnswer(data.answer);
+		}
+		}, [data]);
 
 	const wrapperUpdateYes = () => {
 		updateYes();
@@ -53,18 +55,18 @@ const QuestionPage = ({
 		<div className="flex flex-col justify-center items-center">
 			{answer ? (
 				<YesAnswered />
-			) : (
-				<>
-					<Question y={y} title={title} name={name} />
-					<div className="flex">
-						<div onClick={() => wrapperUpdateYes()}>
+				) : (
+					<>
+						<Question y={y} title={title} name={name} />
+						<div className="flex">
+							<div onClick={() => wrapperUpdateYes()}>
 							<AnswerBox answer="yes" numNo={numNo} incNo={null} />
+							</div>
+							<div onClick={() => wrapperUpdateNo()}>
+								<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
+							</div>
 						</div>
-						<div onClick={() => wrapperUpdateNo()}>
-							<AnswerBox answer="no" numNo={numNo} incNo={() => setNumNo(numNo + 1)} />
-						</div>
-					</div>
-				</>
+					</>
 			)}
 		</div>
 	);

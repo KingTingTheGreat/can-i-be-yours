@@ -20,6 +20,8 @@ const ReceiverPage = () => {
 
 	const data = res.data;
 
+	if (!data) redirect("/");
+
 	const UpdateYes = () => {
 		console.log("you said yes!");
 		fetch(`${URL}/api/updateEntry`, {
