@@ -20,7 +20,7 @@ const ReceiverPage = () => {
 
 	const data = res.data;
 
-	if (!data) redirect("/");
+	if (!data || data.error) redirect("/");
 
 	const UpdateYes = () => {
 		console.log("you said yes!");
